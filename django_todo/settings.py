@@ -14,6 +14,8 @@ import os
 from pathlib import Path
 import dj_database_url
 
+development = os.environ.get('DEVELOPMENT', False)
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -22,10 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', 'm&c+$gf%s&8y1raaykd9nimf@u5$o%0t*%4aa8750-g=awl*%=')
+SECRET_KEY = os.environ.get(
+    'SECRET_KEY', 'm&c+$gf%s&8y1raaykd9nimf@u5$o%0t*%4aa8750-g=awl*%=')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = development
 
 ALLOWED_HOSTS = [os.environ.get('HEROKU_HOSTNAME'), 'localhost']
 
@@ -76,16 +79,17 @@ WSGI_APPLICATION = 'django_todo.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': BASE_DIR / 'db.sqlite3',
-#    }
-#}
-
-DATABASES = {
-    'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
-}
+if development:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+    }
 
 
 # Password validation
