@@ -26,7 +26,7 @@ SECRET_KEY = 'm&c+$gf%s&8y1raaykd9nimf@u5$o%0t*%4aa8750-g=awl*%='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://git.heroku.com/hello-django-todo.git']
 
 
 # Application definition
